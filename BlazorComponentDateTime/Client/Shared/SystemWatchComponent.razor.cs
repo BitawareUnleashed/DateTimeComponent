@@ -32,6 +32,12 @@ namespace BlazorComponentDateTime.Client.Shared
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
         private string separator = string.Empty;
+
+        private string watchLeftPart = string.Empty;
+        private string watchRightPart = string.Empty;
+
+        private string blinkStyleSeparator = string.Empty;
+
         protected override void OnInitialized()
         {
             watch.SecondChangedEvent += Sw_SecondChangedEvent;
@@ -47,6 +53,7 @@ namespace BlazorComponentDateTime.Client.Shared
         {
             var secondsAdded = string.Empty;
 
+
             switch (WatchFormat)
             {
                 case WatchFormat.None:
@@ -59,19 +66,28 @@ namespace BlazorComponentDateTime.Client.Shared
                     break;
                 case WatchFormat.WithBlinking:
                     systemWatch = e.ToShortTimeString();
-                    separator = e.Second % 2 == 0 ? " " : ":";
+                    separator = e.Second % 2 == 0 ? "." : ":";
+                    watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal)).Replace(":", "");
+                    watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
                     break;
                 case WatchFormat.WithSecondsAndBlinking:
                     systemWatch = e.ToLongTimeString();
-                    separator = e.Second % 2 == 0 ? " " : ":";
+                    separator = e.Second % 2 == 0 ? "." : ":";
+                    watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal)+1);
+                    watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
                     break;
                 case WatchFormat.Undefined:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+
+            blinkStyleSeparator = separator == ":" ? "" : "clock-separator";
+
             var regex = new Regex(Regex.Escape(":"));
             systemWatch = regex.Replace(systemWatch, separator, 1);
+
 
             switch (DateFormat)
             {

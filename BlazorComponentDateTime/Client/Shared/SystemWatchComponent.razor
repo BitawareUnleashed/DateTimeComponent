@@ -2,27 +2,39 @@
 @inject SystemWatch watch
 @implements IAsyncDisposable
 
-@switch (DateFormat)
-{
-    case DateFormat.None:
-        <div class="date-group">
-            <p style="margin-bottom: 0; font-weight: bold; font-size:medium">@systemWatch</p>
-        </div>
-        break;
-    case DateFormat.WithLongDate:
-    case DateFormat.WithShortDate:
-        <div class="date-group">
-            <p style="margin-bottom: 0; font-weight: bold;">@systemWatch</p>
-            <p style="margin-top:0">@systemDate</p>
-        </div>
-        break;
-    case DateFormat.Undefined:
-    default:
+<div class="date-group">
+    @switch (WatchFormat)
+    {
+        case WatchFormat.None:
+            <p class="default-watch">@systemWatch</p>
+            break;
+        case WatchFormat.WithSeconds:
+            <p class="watch-with-date">@systemWatch</p>
+            break;
+        case WatchFormat.WithBlinking:
+            <p class="default-watch">@watchLeftPart<strong class="@blinkStyleSeparator">@separator</strong>@watchRightPart</p>
+            break;
+        case WatchFormat.WithSecondsAndBlinking:
+            <p class="default-watch">@watchLeftPart<strong class="@blinkStyleSeparator">@separator</strong>@watchRightPart</p>
+            break;
+        case WatchFormat.Undefined:
+        default:
+            <p class="watch-with-date">@systemWatch</p>
+            break;
+    }
+
+    @switch (DateFormat)
+    {
+        case DateFormat.None:
+            
+            break;
+        case DateFormat.WithLongDate:
+        case DateFormat.WithShortDate:
+            <p class="date-field">@systemDate</p>
+            break;
+        case DateFormat.Undefined:
+        default:
             <h1>@systemWatch</h1>
-        break;
-}
-
- @switch (WatchFormat)
- {
-
- }
+            break;
+    }
+</div>

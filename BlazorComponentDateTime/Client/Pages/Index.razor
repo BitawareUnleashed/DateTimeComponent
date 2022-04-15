@@ -2,27 +2,30 @@
 @using BlazorAppTest.Client.Models
 
 <PageTitle>Index</PageTitle>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Standard time.</p>
+
+
+
+<div class="element-container">
+    <div class="title">Standard time</div>
     <SystemWatchComponent/>
 </div>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Time with blinking</p>
+<div class="element-container">
+    <div class="title">Time with blinking</div>
     <SystemWatchComponent WatchFormat="WatchFormat.WithBlinking"/>
 </div>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Time with seconds</p>
+<div class="element-container">
+    <div class="title">Time with seconds</div>
     <SystemWatchComponent WatchFormat="WatchFormat.WithSeconds"/>
 </div>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Time with blinking and seconds</p>
+<div class="element-container">
+    <div class="title">Time with blinking and seconds</div>
     <SystemWatchComponent WatchFormat="WatchFormat.WithSecondsAndBlinking"/>
 </div>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Standard dime with long date format</p>
+<div class="element-container">
+    <div class="title">Standard dime with long date format</div>
     <SystemWatchComponent DateFormat="DateFormat.WithLongDate"/>
 </div>
-<div style="border: 1px solid black; width: 300px;">
-    <p>Standard dime with short date format</p>
+<div class="element-container">
+    <div class="title">Standard dime with short date format</div>
     <SystemWatchComponent DateFormat="DateFormat.WithShortDate"/>
 </div>

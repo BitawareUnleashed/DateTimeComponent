@@ -1,4 +1,29 @@
 ﻿.date-group {
     text-align: center;
     display: table;
+    margin-top: 0;
+    width: 100%;
+}
+
+.default-watch {
+    margin-bottom: 0;
+    font-weight: bold;
+    font-size: medium
+}
+
+.watch-with-date {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-weight: bold;
+}
+
+.date-field {
+    margin-top: -5px;
+    margin-bottom: 0;
+    font-size: small;
+}
+
+.clock-separator {
+    color: #000; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0.01);
 }
