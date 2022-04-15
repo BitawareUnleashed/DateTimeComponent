@@ -1,0 +1,28 @@
+﻿@page "/"
+@using BlazorAppTest.Client.Models
+
+<PageTitle>Index</PageTitle>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Standard time.</p>
+    <SystemWatchComponent/>
+</div>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Time with blinking</p>
+    <SystemWatchComponent WatchFormat="WatchFormat.WithBlinking"/>
+</div>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Time with seconds</p>
+    <SystemWatchComponent WatchFormat="WatchFormat.WithSeconds"/>
+</div>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Time with blinking and seconds</p>
+    <SystemWatchComponent WatchFormat="WatchFormat.WithSecondsAndBlinking"/>
+</div>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Standard dime with long date format</p>
+    <SystemWatchComponent DateFormat="DateFormat.WithLongDate"/>
+</div>
+<div style="border: 1px solid black; width: 300px;">
+    <p>Standard dime with short date format</p>
+    <SystemWatchComponent DateFormat="DateFormat.WithShortDate"/>
+</div>
