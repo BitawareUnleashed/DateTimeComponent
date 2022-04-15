@@ -25,5 +25,5 @@
 
 .clock-separator {
     color: #000; /* Fallback for older browsers */
-    color: rgba(0, 0, 0, 0.01);
+    color: rgba(0, 0, 0, 0.0);
 }

@@ -1,9 +1,7 @@
 ﻿@page "/"
-@using BlazorAppTest.Client.Models
+@using BlazorComponentDateTime.Client.Models
 
 <PageTitle>Index</PageTitle>
-
-
 
 <div class="element-container">
     <div class="title">Standard time</div>
@@ -22,10 +20,10 @@
     <SystemWatchComponent WatchFormat="WatchFormat.WithSecondsAndBlinking"/>
 </div>
 <div class="element-container">
-    <div class="title">Standard dime with long date format</div>
+    <div class="title">Standard time with long date format</div>
     <SystemWatchComponent DateFormat="DateFormat.WithLongDate"/>
 </div>
 <div class="element-container">
-    <div class="title">Standard dime with short date format</div>
+    <div class="title">Standard time with short date format</div>
     <SystemWatchComponent DateFormat="DateFormat.WithShortDate"/>
 </div>

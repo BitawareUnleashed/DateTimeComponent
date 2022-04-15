@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Timers;
 
-namespace BlazorAppTest.Client.Models
+namespace BlazorComponentDateTime.Client.Models
 {
     public class SystemWatch : IDisposable
     {
@@ -36,7 +31,7 @@ namespace BlazorAppTest.Client.Models
         /// Initializes a new instance of the <see cref="SystemWatch"/> class.
         /// </summary>
         /// <param name="interval">The interval in milliseconds [minimum 500].</param>
-        public SystemWatch(int interval = 10)
+        public SystemWatch(int interval = 20)
         {
             // Create a timer and set a two second interval.
             if (aTimer == null)

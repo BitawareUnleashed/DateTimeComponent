@@ -1,5 +1,5 @@
-using BlazorAppTest.Client.Models;
 using BlazorComponentDateTime.Client;
+using BlazorComponentDateTime.Client.Models;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 

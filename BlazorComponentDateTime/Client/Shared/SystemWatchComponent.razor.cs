@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using BlazorAppTest.Client.Models;
+using BlazorComponentDateTime.Client.Models;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorComponentDateTime.Client.Shared
@@ -31,7 +31,8 @@ namespace BlazorComponentDateTime.Client.Shared
 
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
-        private string separator = string.Empty;
+        private string separator = ":";
+        private bool separatorActive = false;
 
         private string watchLeftPart = string.Empty;
         private string watchRightPart = string.Empty;
@@ -51,9 +52,6 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <param name="e">The e.</param>
         private void Sw_SecondChangedEvent(object? sender, DateTime e)
         {
-            var secondsAdded = string.Empty;
-
-
             switch (WatchFormat)
             {
                 case WatchFormat.None:
@@ -66,15 +64,11 @@ namespace BlazorComponentDateTime.Client.Shared
                     break;
                 case WatchFormat.WithBlinking:
                     systemWatch = e.ToShortTimeString();
-                    separator = e.Second % 2 == 0 ? "." : ":";
-                    watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal)).Replace(":", "");
-                    watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
+                    separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchFormat.WithSecondsAndBlinking:
                     systemWatch = e.ToLongTimeString();
-                    separator = e.Second % 2 == 0 ? "." : ":";
-                    watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal)+1);
-                    watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
+                    separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchFormat.Undefined:
                     break;
@@ -82,11 +76,12 @@ namespace BlazorComponentDateTime.Client.Shared
                     throw new ArgumentOutOfRangeException();
             }
 
-
-            blinkStyleSeparator = separator == ":" ? "" : "clock-separator";
-
             var regex = new Regex(Regex.Escape(":"));
             systemWatch = regex.Replace(systemWatch, separator, 1);
+
+            watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal) + 1);
+            watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
+            blinkStyleSeparator = separatorActive ? "" : "clock-separator";
 
 
             switch (DateFormat)

@@ -1,4 +1,4 @@
-﻿@using BlazorAppTest.Client.Models
+﻿@using BlazorComponentDateTime.Client.Models
 @inject SystemWatch watch
 @implements IAsyncDisposable
 
@@ -12,10 +12,10 @@
             <p class="watch-with-date">@systemWatch</p>
             break;
         case WatchFormat.WithBlinking:
-            <p class="default-watch">@watchLeftPart<strong class="@blinkStyleSeparator">@separator</strong>@watchRightPart</p>
+            <p class="default-watch">@watchLeftPart<e class="@blinkStyleSeparator">@separator</e>@watchRightPart</p>
             break;
         case WatchFormat.WithSecondsAndBlinking:
-            <p class="default-watch">@watchLeftPart<strong class="@blinkStyleSeparator">@separator</strong>@watchRightPart</p>
+            <p class="default-watch">@watchLeftPart<e class="@blinkStyleSeparator">@separator</e>@watchRightPart</p>
             break;
         case WatchFormat.Undefined:
         default:
