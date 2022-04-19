@@ -3,35 +3,42 @@
 
 <PageTitle>Index</PageTitle>
 
+<div>
+    <p>
+        Display 24h
+        <input type="checkbox" checked=@is24h @bind-value="@is24h" />
+    </p>
+</div>
+
 <div class="element-container">
     <div class="title">Standard time</div>
-    <SystemWatchComponent/>
+    <SystemWatchComponent Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Time with blinking</div>
-    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithBlinking"/>
+    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithBlinking" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Time with seconds</div>
-    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSeconds"/>
+    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSeconds" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Time with blinking and seconds</div>
-    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking"/>
+    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Standard time with long date format</div>
-    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate"/>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Standard time with short date format</div>
-    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate"/>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Standard time with long date format with seconds</div>
-    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate" ClockDisplay="WatchDisplayEnum.WithSeconds"/>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate" ClockDisplay="WatchDisplayEnum.WithSeconds" Is24h=is24h />
 </div>
 <div class="element-container">
     <div class="title">Standard time with short date format blinking</div>
-    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate" ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking"/>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate" ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking" Is24h=is24h />
 </div>

@@ -36,6 +36,9 @@ namespace BlazorComponentDateTime.Client.Shared
         /// </value>
         [Parameter] public CultureInfo Culture { get; set; }= CultureInfo.CurrentCulture;
 
+        [Parameter]
+        public bool Is24h { get; set; } = false;
+
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
         private string separator = ":";
@@ -59,22 +62,27 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <param name="e">The e.</param>
         private void Sw_SecondChangedEvent(object? sender, DateTime e)
         {
+            string timeFormat = "";
             switch (ClockDisplay)
             {
                 case WatchDisplayEnum.None:
-                    systemWatch = e.ToString("hh:mm tt", Culture);
+                    timeFormat = Is24h ?  "HH:mm" : "hh:mm tt";
+                    systemWatch = e.ToString(timeFormat, Culture);
                     separator = ":";
                     break;
                 case WatchDisplayEnum.WithSeconds:
-                    systemWatch = e.ToString("hh:mm ss tt", Culture);
+                    timeFormat = Is24h ? "HH:mm ss": "hh:mm ss tt";
+                    systemWatch = e.ToString(timeFormat, Culture);
                     separator = ":";
                     break;
                 case WatchDisplayEnum.WithBlinking:
-                    systemWatch = e.ToString("hh:mm tt", Culture);
+                    timeFormat = Is24h ? "HH:mm": "hh:mm ss" ;
+                    systemWatch = e.ToString(timeFormat, Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchDisplayEnum.WithSecondsAndBlinking:
-                    systemWatch = e.ToString("hh:mm ss tt", Culture);
+                    timeFormat = Is24h ? "HH:mm ss": "hh:mm ss tt";
+                    systemWatch = e.ToString(timeFormat, Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchDisplayEnum.Undefined:
@@ -108,6 +116,11 @@ namespace BlazorComponentDateTime.Client.Shared
             }
 
             StateHasChanged();
+        }
+        protected override void OnParametersSet()
+        {
+            StateHasChanged();
+            base.OnParametersSet();
         }
 
         public ValueTask DisposeAsync()
