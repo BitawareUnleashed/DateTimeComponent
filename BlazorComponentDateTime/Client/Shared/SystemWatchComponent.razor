@@ -3,36 +3,36 @@
 @implements IAsyncDisposable
 
 <div class="date-group">
-    @switch (WatchFormat)
+    @switch (ClockDisplay)
     {
-        case WatchFormat.None:
+        case WatchDisplayEnum.None:
             <p class="default-watch">@systemWatch</p>
             break;
-        case WatchFormat.WithSeconds:
+        case WatchDisplayEnum.WithSeconds:
             <p class="watch-with-date">@systemWatch</p>
             break;
-        case WatchFormat.WithBlinking:
+        case WatchDisplayEnum.WithBlinking:
             <p class="default-watch">@watchLeftPart<e class="@blinkStyleSeparator">@separator</e>@watchRightPart</p>
             break;
-        case WatchFormat.WithSecondsAndBlinking:
+        case WatchDisplayEnum.WithSecondsAndBlinking:
             <p class="default-watch">@watchLeftPart<e class="@blinkStyleSeparator">@separator</e>@watchRightPart</p>
             break;
-        case WatchFormat.Undefined:
+        case WatchDisplayEnum.Undefined:
         default:
             <p class="watch-with-date">@systemWatch</p>
             break;
     }
 
-    @switch (DateFormat)
+    @switch (DateDisplay)
     {
-        case DateFormat.None:
+        case DateDisplayEnum.None:
             
             break;
-        case DateFormat.WithLongDate:
-        case DateFormat.WithShortDate:
+        case DateDisplayEnum.WithLongDate:
+        case DateDisplayEnum.WithShortDate:
             <p class="date-field">@systemDate</p>
             break;
-        case DateFormat.Undefined:
+        case DateDisplayEnum.Undefined:
         default:
             <h1>@systemWatch</h1>
             break;

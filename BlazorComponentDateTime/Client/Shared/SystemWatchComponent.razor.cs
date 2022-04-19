@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,8 +18,7 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <value>
         /// The watch format.
         /// </value>
-        [Parameter]
-        public WatchFormat WatchFormat { get; set; } = WatchFormat.None;
+        [Parameter] public WatchDisplayEnum ClockDisplay { get; set; } = WatchDisplayEnum.None;
 
         /// <summary>
         /// Gets or sets the date format.
@@ -26,8 +26,15 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <value>
         /// The date format.
         /// </value>
-        [Parameter]
-        public DateFormat DateFormat { get; set; } = DateFormat.None;
+        [Parameter] public DateDisplayEnum DateDisplay { get; set; } = DateDisplayEnum.None;
+
+        /// <summary>
+        /// Gets or sets the culture.
+        /// </summary>
+        /// <value>
+        /// The culture.
+        /// </value>
+        [Parameter] public CultureInfo Culture { get; set; }= CultureInfo.CurrentCulture;
 
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
@@ -52,25 +59,25 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <param name="e">The e.</param>
         private void Sw_SecondChangedEvent(object? sender, DateTime e)
         {
-            switch (WatchFormat)
+            switch (ClockDisplay)
             {
-                case WatchFormat.None:
-                    systemWatch = e.ToShortTimeString();
+                case WatchDisplayEnum.None:
+                    systemWatch = e.ToString("hh:mm tt", Culture);
                     separator = ":";
                     break;
-                case WatchFormat.WithSeconds:
-                    systemWatch = e.ToLongTimeString();
+                case WatchDisplayEnum.WithSeconds:
+                    systemWatch = e.ToString("hh:mm ss tt", Culture);
                     separator = ":";
                     break;
-                case WatchFormat.WithBlinking:
-                    systemWatch = e.ToShortTimeString();
+                case WatchDisplayEnum.WithBlinking:
+                    systemWatch = e.ToString("hh:mm tt", Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
-                case WatchFormat.WithSecondsAndBlinking:
-                    systemWatch = e.ToLongTimeString();
+                case WatchDisplayEnum.WithSecondsAndBlinking:
+                    systemWatch = e.ToString("hh:mm ss tt", Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
-                case WatchFormat.Undefined:
+                case WatchDisplayEnum.Undefined:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -84,17 +91,17 @@ namespace BlazorComponentDateTime.Client.Shared
             blinkStyleSeparator = separatorActive ? "" : "clock-separator";
 
 
-            switch (DateFormat)
+            switch (DateDisplay)
             {
-                case DateFormat.None:
+                case DateDisplayEnum.None:
                     break;
-                case DateFormat.WithShortDate:
+                case DateDisplayEnum.WithShortDate:
                     systemDate = e.ToShortDateString();
                     break;
-                case DateFormat.WithLongDate:
+                case DateDisplayEnum.WithLongDate:
                     systemDate = e.ToLongDateString();
                     break;
-                case DateFormat.Undefined:
+                case DateDisplayEnum.Undefined:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

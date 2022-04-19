@@ -1,6 +1,6 @@
 ﻿namespace BlazorComponentDateTime.Client.Models;
 
-public enum WatchFormat
+public enum WatchDisplayEnum
 {
     None = 0x00,
     WithSeconds = 0x01,

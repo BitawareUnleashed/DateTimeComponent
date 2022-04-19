@@ -1,6 +1,6 @@
 ﻿namespace BlazorComponentDateTime.Client.Models
 {
-    public enum DateFormat
+    public enum DateDisplayEnum
     {
         None = 0x00,
         WithShortDate = 0x01,
