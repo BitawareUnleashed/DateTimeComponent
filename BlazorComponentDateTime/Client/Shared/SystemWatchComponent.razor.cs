@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BlazorComponentDateTime.Client.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace BlazorComponentDateTime.Client.Shared
 {
@@ -44,6 +45,14 @@ namespace BlazorComponentDateTime.Client.Shared
         /// </value>
         [Parameter] public bool Is24H { get; set; } = false;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether enable js time clock.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable js time]; otherwise, <c>false</c>.
+        /// </value>
+        [Parameter] public bool EnableJsTime { get; set; }
+
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
         private string separator = ":";
@@ -55,8 +64,36 @@ namespace BlazorComponentDateTime.Client.Shared
 
         protected override void OnInitialized()
         {
-            watch.SecondChangedEvent += Sw_SecondChangedEvent;
-            base.OnInitialized();
+            if (EnableJsTime)
+            {
+                var dotNetReference = DotNetObjectReference.Create(this);
+                JsRuntime.InvokeVoidAsync("SystemWatchCaller.NewWatch", dotNetReference);
+                base.OnInitialized();
+            }
+            else
+            {
+                watch.SecondChangedEvent += Sw_SecondChangedEvent;
+            }
+        }
+
+        [JSInvokable("UpdateWatch")]
+        public void UpdateWatch(string time)
+        {
+            var timePieces=time.Split(':');
+            if (timePieces.Length <3)
+            {
+                throw new ArgumentException("Invalid datetime");
+            }
+
+            DateTime e = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, int.Parse(timePieces[0]),
+                int.Parse(timePieces[1]), int.Parse(timePieces[2]));
+            ClockDisplayMethod(e);
+
+            FormatClock();
+
+            DateDisplayMethod(e);
+
+            StateHasChanged();
         }
 
         /// <summary>
