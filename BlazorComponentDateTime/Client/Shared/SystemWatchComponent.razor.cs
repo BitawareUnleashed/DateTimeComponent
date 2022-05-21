@@ -36,14 +36,18 @@ namespace BlazorComponentDateTime.Client.Shared
         /// </value>
         [Parameter] public CultureInfo Culture { get; set; }= CultureInfo.CurrentCulture;
 
-        [Parameter]
-        public bool Is24h { get; set; } = false;
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="SystemWatchComponent"/> is is24h.
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if is24h; otherwise, <c>false</c>.
+        /// </value>
+        [Parameter] public bool Is24H { get; set; } = false;
 
         private string systemWatch = string.Empty;
         private string systemDate = string.Empty;
         private string separator = ":";
         private bool separatorActive = false;
-
         private string watchLeftPart = string.Empty;
         private string watchRightPart = string.Empty;
 
@@ -62,43 +66,59 @@ namespace BlazorComponentDateTime.Client.Shared
         /// <param name="e">The e.</param>
         private void Sw_SecondChangedEvent(object? sender, DateTime e)
         {
-            string timeFormat = "";
+            ClockDisplayMethod(e);
+
+            FormatClock();
+
+            DateDisplayMethod(e);
+
+            StateHasChanged();
+        }
+
+        /// <summary>
+        /// Method able to display properly the time according to the user's choices
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        private void ClockDisplayMethod(DateTime e)
+        {
+            string timeFormat;
             switch (ClockDisplay)
             {
                 case WatchDisplayEnum.None:
-                    timeFormat = Is24h ?  "HH:mm" : "hh:mm tt";
+                    timeFormat = Is24H ? "HH:mm" : "hh:mm tt";
                     systemWatch = e.ToString(timeFormat, Culture);
                     separator = ":";
                     break;
                 case WatchDisplayEnum.WithSeconds:
-                    timeFormat = Is24h ? "HH:mm ss": "hh:mm ss tt";
+                    timeFormat = Is24H ? "HH:mm ss" : "hh:mm ss tt";
                     systemWatch = e.ToString(timeFormat, Culture);
                     separator = ":";
                     break;
                 case WatchDisplayEnum.WithBlinking:
-                    timeFormat = Is24h ? "HH:mm": "hh:mm ss" ;
+                    timeFormat = Is24H ? "HH:mm" : "hh:mm";
                     systemWatch = e.ToString(timeFormat, Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchDisplayEnum.WithSecondsAndBlinking:
-                    timeFormat = Is24h ? "HH:mm ss": "hh:mm ss tt";
+                    timeFormat = Is24H ? "HH:mm ss" : "hh:mm ss tt";
                     systemWatch = e.ToString(timeFormat, Culture);
                     separatorActive = e.Second % 2 == 0;
                     break;
                 case WatchDisplayEnum.Undefined:
-                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            var regex = new Regex(Regex.Escape(":"));
-            systemWatch = regex.Replace(systemWatch, separator, 1);
-
-            watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal) + 1);
-            watchLeftPart = systemWatch.Replace(watchRightPart, "").Replace(":", "");
-            blinkStyleSeparator = separatorActive ? "" : "clock-separator";
-
-
+        }
+        
+        /// <summary>
+        /// Method able to display properly the date according to the user's choices
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
+        private void DateDisplayMethod(DateTime e)
+        {
             switch (DateDisplay)
             {
                 case DateDisplayEnum.None:
@@ -114,9 +134,20 @@ namespace BlazorComponentDateTime.Client.Shared
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            StateHasChanged();
         }
+        /// <summary>
+        /// Formats the clock.
+        /// </summary>
+        private void FormatClock()
+        {
+            var regex = new Regex(Regex.Escape(":"));
+            systemWatch = regex.Replace(systemWatch, separator, 1);
+
+            watchRightPart = systemWatch.Substring(systemWatch.IndexOf(":", StringComparison.Ordinal) + 1);
+            watchLeftPart = systemWatch.Substring(0, systemWatch.IndexOf(":", StringComparison.CurrentCulture));
+            blinkStyleSeparator = separatorActive ? "" : "clock-separator";
+        }
+
         protected override void OnParametersSet()
         {
             StateHasChanged();
