@@ -11,7 +11,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<SystemWatch>(o =>
 {
-    SystemWatch sw = new SystemWatch(100);
+    SystemWatch sw = new SystemWatch();
     return sw;
 });
 

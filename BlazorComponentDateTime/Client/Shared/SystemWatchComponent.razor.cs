@@ -62,6 +62,9 @@ namespace BlazorComponentDateTime.Client.Shared
 
         private string blinkStyleSeparator = string.Empty;
 
+        private CancellationTokenSource ct = new CancellationTokenSource();
+
+
         protected override void OnInitialized()
         {
             if (EnableJsTime)
@@ -72,8 +75,13 @@ namespace BlazorComponentDateTime.Client.Shared
             }
             else
             {
-                watch.SecondChangedEvent += Sw_SecondChangedEvent;
+                watch.SecondChangedEvent += Sw_SecondChangedEvent;// Watch_SecondChangedEvent;
             }
+        }
+
+        private void Watch_SecondChangedEvent(object? sender, string e)
+        {
+            UpdateWatch(e);
         }
 
         [JSInvokable("UpdateWatch")]
@@ -193,7 +201,9 @@ namespace BlazorComponentDateTime.Client.Shared
 
         public ValueTask DisposeAsync()
         {
+            ct.Cancel();
             watch.SecondChangedEvent -= Sw_SecondChangedEvent;
+            //watch.SecondChangedEvent -= Watch_SecondChangedEvent;
             return ValueTask.CompletedTask;
         }
     }

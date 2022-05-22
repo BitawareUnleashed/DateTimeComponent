@@ -10,6 +10,21 @@
     </p>
 </div>
 
+<h2>Benchmark</h2>
+<div class="element-container">
+    <div class="title">Time with blinking .NET timer</div>
+    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking" Is24H=is24h EnableJsTime="false" />
+</div>
+<div class="element-container">
+    <div class="title">Time with blinking JS</div>
+    <SystemWatchComponent ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking" Is24H=is24h EnableJsTime="true" />
+</div>
+
+
+
+
+<hr/>
+<h2>Samples</h2>
 <div class="element-container">
     <div class="title">Standard time</div>
     <SystemWatchComponent Is24H=is24h />

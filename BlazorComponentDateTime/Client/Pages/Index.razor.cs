@@ -9,6 +9,6 @@ namespace BlazorComponentDateTime.Client.Pages
     public partial class Index
     {
         private bool is24h = true;
-        private bool EnableJsTime=true;
+        private bool EnableJsTime=false;
     }
 }

@@ -13,7 +13,7 @@ SystemWatchCaller.NewWatch = function (dotNetObject) {
         var min = addZero(d.getMinutes());
         var sec = addZero(d.getSeconds());
         var systemWatch = hour + ":" + min + ":" + sec;
-        console.log("JS: Generated " + systemWatch.toString());
+        //console.log("JS: Generated " + systemWatch.toString());
         dotNetObject.invokeMethodAsync('UpdateWatch', systemWatch.toString());
     }, 1000);
 };
