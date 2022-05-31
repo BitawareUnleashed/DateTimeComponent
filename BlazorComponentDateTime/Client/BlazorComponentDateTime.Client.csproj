@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DateTimeComponet\DateTimeComponent.csproj" />
     <ProjectReference Include="..\Shared\BlazorComponentDateTime.Shared.csproj" />
   </ItemGroup>
 

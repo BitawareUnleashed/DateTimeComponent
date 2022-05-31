@@ -1,4 +1,4 @@
-﻿namespace BlazorComponentDateTime.Client.Models
+﻿namespace DateTimeComponent.Models
 {
     public enum DateDisplayEnum
     {

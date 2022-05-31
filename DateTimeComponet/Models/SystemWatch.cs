@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using System.Timers;
 
-namespace BlazorComponentDateTime.Client.Models
+namespace DateTimeComponent.Models
 {
     public class SystemWatch : IDisposable
     {
