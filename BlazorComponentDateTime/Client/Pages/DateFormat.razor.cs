@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlazorComponentDateTime.Client.Pages;
-
-public partial class Index
+public partial class DateFormat
 {
     private bool is24h = true;
     private bool EnableJsTime = false;
 }
+

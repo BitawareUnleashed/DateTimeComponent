@@ -1,0 +1,29 @@
+﻿@page "/DateFormat"
+@using DateTimeComponent
+@using DateTimeComponent.Models
+<PageTitle>Watch with date time formats</PageTitle>
+
+<div>
+    <p>
+        Display 24h
+        <input type="checkbox" checked=@is24h @bind-value="@is24h" />
+    </p>
+</div>
+
+
+<div class="element-container">
+    <div class="title">Standard time with long date format</div>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate" Is24H=is24h EnableJsTime="@EnableJsTime"/>
+</div>
+<div class="element-container">
+    <div class="title">Standard time with short date format</div>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate" Is24H=is24h EnableJsTime="@EnableJsTime"/>
+</div>
+<div class="element-container">
+    <div class="title">Standard time with long date format with seconds</div>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithLongDate" ClockDisplay="WatchDisplayEnum.WithSeconds" Is24H=is24h EnableJsTime="@EnableJsTime"/>
+</div>
+<div class="element-container">
+    <div class="title">Standard time with short date format blinking</div>
+    <SystemWatchComponent DateDisplay="DateDisplayEnum.WithShortDate" ClockDisplay="WatchDisplayEnum.WithSecondsAndBlinking" Is24H=is24h EnableJsTime="@EnableJsTime"/>
+</div>

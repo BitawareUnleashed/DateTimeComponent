@@ -1,0 +1,11 @@
+﻿.title {
+    margin: 0;
+}
+
+.element-container {
+    text-align: center;
+    display: table;
+    margin-top: 0;
+    border: 1px solid black;
+    width: 300px;
+}
