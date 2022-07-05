@@ -49,8 +49,7 @@ namespace DateTimeComponent.Models
         {
             // Useful for separator event
             Separator?.Invoke(this, e.Second % 2 == 0 ? " " : ":");
-
-
+            
             // Seconds
             if ((e - StartingDateSeconds).Seconds > 0)
             {
