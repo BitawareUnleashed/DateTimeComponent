@@ -12,7 +12,7 @@ namespace DateTimeComponent.Models
         private DateTime StartingDateSeconds = DateTime.Now;
         #endregion
 
-        private static System.Timers.Timer? aTimer;
+        private System.Timers.Timer? aTimer;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SystemWatch"/> class.
